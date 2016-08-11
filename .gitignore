@@ -1,0 +1,12 @@
+/target/
+.classpath
+.idea/
+.project
+*.iml
+.settings/
+/.idea
+/.settings
+nb-configuration.xml
+src/main/resources/rebel.xml
+src/main/resources/app.eng.properties
+src/main/resources/rebel-remote.xml

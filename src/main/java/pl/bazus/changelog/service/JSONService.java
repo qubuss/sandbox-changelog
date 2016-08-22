@@ -1,4 +1,4 @@
-package pl.bazus.changelog.Service;
+package pl.bazus.changelog.service;
 
 
 import org.apache.log4j.Logger;
@@ -11,7 +11,11 @@ public class JSONService {
     private BufferedReader bufferedReader;
     private final static Logger LOGGER = Logger.getLogger(JSONService.class);
 
-
+    public JSONObject getAll(BufferedReader bufferedReader) throws Exception{
+        this.bufferedReader = bufferedReader;
+        JSONObject json = new JSONObject(getStringFromURL());
+        return json;
+    }
 
     public String getDodatkowyOpis(BufferedReader bufferedReader) throws Exception {
         this.bufferedReader = bufferedReader;

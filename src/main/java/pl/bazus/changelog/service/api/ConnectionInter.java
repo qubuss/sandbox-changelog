@@ -1,4 +1,4 @@
-package pl.bazus.changelog.Service;
+package pl.bazus.changelog.service.api;
 
 public interface ConnectionInter {
     void HttpConn() throws Exception;

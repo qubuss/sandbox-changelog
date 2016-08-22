@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Issue {
-    String value;
+    String issueId;
+    String subject;
 
 }

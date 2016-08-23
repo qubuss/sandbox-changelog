@@ -22,12 +22,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-//TODO przeniesc do absrtact / inter , refactor
+//TODO posprzątać
 
 public class RedmineIssueService implements ConnectionInter {
     private final static Logger LOGGER = Logger.getLogger(RedmineIssueService.class);
     private Integer idIssue;
-    private static String URL_ISSUES = "http://jakub.fryga:daniel.12@serwis.bazus.pl/issues/";
+    private static String URL_ISSUES = "http://serwis.bazus.pl/issues/";
     private static URL url;
     final String USER_AGENT = "Mozilla/5.0";
     private JSONService jsonService;
@@ -52,7 +52,7 @@ public class RedmineIssueService implements ConnectionInter {
         con.setRequestProperty("User-Agent", USER_AGENT);
 
 
-
+        System.out.println(con.getURL());
         System.out.println(con.getRequestProperties());
 
         BufferedReader br = new BufferedReader(
@@ -72,8 +72,8 @@ public class RedmineIssueService implements ConnectionInter {
         LOGGER.info(obj);
         JSONObject object = obj.getJSONObject("issue");
         LOGGER.info(object);
-        JSONObject s = object.getJSONObject("status");
-        LOGGER.info(s);
+        String js = object.getString("subject");
+        LOGGER.info(js);
 
 
 

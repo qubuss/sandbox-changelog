@@ -5,29 +5,27 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+
 
 public class Testowe {
     private final static Logger LOGGER = Logger.getLogger(Testowe.class);
 
-    URL url = new URL("http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=150");
+    //URL url = new URL("http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=150");
     final String USER_AGENT = "Mozilla/5.0";
     private JSONService jsonService;
 
     public Testowe() throws Exception {
     }
 
-    public void HttpConn() throws Exception {
+    public List<String> HttpConn(String urlString) throws Exception {
+        URL url = new URL(urlString);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
@@ -53,5 +51,6 @@ public class Testowe {
 
         }
 
+        return lista;
     }
 }

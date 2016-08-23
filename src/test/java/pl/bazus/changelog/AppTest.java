@@ -40,6 +40,7 @@ public class AppTest {
 
     @Test
     public void test() throws Exception {
-        new Testowe().HttpConn();
+        String url = "http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=150";
+        new Testowe().HttpConn(url);
     }
 }

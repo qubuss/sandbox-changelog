@@ -2,7 +2,6 @@ package pl.bazus.changelog.service;
 
 import com.google.common.collect.Lists;
 import org.apache.log4j.Logger;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -19,7 +18,7 @@ public class Testowe {
 
     //URL url = new URL("http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=150");
     final String USER_AGENT = "Mozilla/5.0";
-    private JSONService jsonService;
+    private Object jsonService;
 
     public Testowe() throws Exception {
     }

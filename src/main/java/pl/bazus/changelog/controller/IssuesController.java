@@ -12,7 +12,7 @@ import java.util.List;
 public class IssuesController {
 
     @RequestMapping(path = "/getIssues", method = RequestMethod.GET)
-    public List<String> parse(@RequestParam(value = "url", defaultValue = "user") String url) throws Exception {
+    public List<String> getIssues(@RequestParam(value = "url", defaultValue = "user") String url) throws Exception {
         List<String> lista = new Testowe().HttpConn(url);
         return lista;
     }

@@ -44,6 +44,6 @@ public class AppTest {
     @Test
     public void test() throws Exception {
         String url = "http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=150";
-        new Testowe().HttpConn(url);
+        new ChangeLogGit().HttpConn(url);
     }
 }

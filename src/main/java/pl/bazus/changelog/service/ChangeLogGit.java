@@ -13,14 +13,14 @@ import java.util.regex.Pattern;
 
 
 
-public class Testowe {
-    private final static Logger LOGGER = Logger.getLogger(Testowe.class);
+public class ChangeLogGit {
+    private final static Logger LOGGER = Logger.getLogger(ChangeLogGit.class);
 
     //URL url = new URL("http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=150");
     final String USER_AGENT = "Mozilla/5.0";
     private Object jsonService;
 
-    public Testowe() throws Exception {
+    public ChangeLogGit() throws Exception {
     }
 
     public List<String> HttpConn(String urlString) throws Exception {

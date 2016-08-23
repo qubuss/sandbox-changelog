@@ -1,10 +1,9 @@
 package pl.bazus.changelog;
 
 
-import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
-import pl.bazus.changelog.service.*;
+import pl.bazus.changelog.service.connection.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,7 +28,7 @@ public class AppTest {
 
     }
 
-
+@Ignore
     @Test
     public void testujRest() throws Exception {
         new RestTemplateConnectionMethod().connection(url);
@@ -40,10 +39,11 @@ public class AppTest {
     public void testujUni() throws Exception {
         new UniRestConnectionMethod().connection(url);
     }
-@Ignore
+
+
     @Test
     public void test() throws Exception {
         String url = "http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=150";
-        new ChangeLogGit().HttpConn(url);
+        System.out.println(new ChangeLogGit().connection(new URL(url)));
     }
 }

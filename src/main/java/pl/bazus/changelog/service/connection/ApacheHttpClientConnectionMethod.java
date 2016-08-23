@@ -1,4 +1,4 @@
-package pl.bazus.changelog.service;
+package pl.bazus.changelog.service.connection;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;

@@ -1,12 +1,13 @@
 package pl.bazus.changelog.domein;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Issue {
+public abstract class Issue {
     String issueId;
-    String subject;
+
+    public Issue(String issueId) {
+        this.issueId = issueId;
+    }
 
 }

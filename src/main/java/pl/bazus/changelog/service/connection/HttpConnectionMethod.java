@@ -1,4 +1,4 @@
-package pl.bazus.changelog.service;
+package pl.bazus.changelog.service.connection;
 
 import pl.bazus.changelog.exceptions.NieMoznaSiePolaczyc;
 import pl.bazus.changelog.service.api.Connection;

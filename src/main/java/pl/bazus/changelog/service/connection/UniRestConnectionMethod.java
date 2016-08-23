@@ -1,4 +1,4 @@
-package pl.bazus.changelog.service;
+package pl.bazus.changelog.service.connection;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;

@@ -1,4 +1,4 @@
-package pl.bazus.changelog.service;
+package pl.bazus.changelog.service.connection;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

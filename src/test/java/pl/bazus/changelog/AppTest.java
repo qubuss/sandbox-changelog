@@ -43,7 +43,12 @@ public class AppTest {
 
     @Test
     public void test() throws Exception {
-        String url = "http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=150";
-        System.out.println(new ChangeLogGit().connection(new URL(url)));
+        String url = "http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=10";
+        ChangeLogGit changeLogGit = new ChangeLogGit();
+        String response = changeLogGit.connection(new URL(url));
+        changeLogGit.getAllIssues(response).stream().forEach(issue -> System.out.println(issue.toString()));
+
+
     }
+
 }

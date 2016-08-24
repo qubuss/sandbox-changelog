@@ -21,23 +21,16 @@ public class HttpConnectionMethod implements Connection {
     @Override
     public String connection(URL url) throws NieMoznaSiePolaczyc, IOException {
         String user = "jakub.fryga:daniel.12";
-        String encode = "Basic "+new BASE64Encoder().encode(user.getBytes());
+        String encode = "Basic " + new BASE64Encoder().encode(user.getBytes());
+
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestProperty("Authorization", encode);
         con.setRequestMethod("GET");
-        con.setRequestProperty("User-Agent", USER_AGENT);
 
 
-        BufferedReader br = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-
-        String inputLine;
         StringBuffer response = new StringBuffer();
-
-        while ((inputLine = br.readLine()) != null) {
-            response.append(inputLine);
-        }
-
+        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        br.lines().forEach(s -> response.append(s));
         br.close();
 
         return response.toString();

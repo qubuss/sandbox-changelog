@@ -20,4 +20,9 @@ public class NieMoznaSiePolaczyc extends Exception {
     protected NieMoznaSiePolaczyc(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
+    @Override
+    public String getMessage() {
+        return "Błąd z połączeniem";
+    }
 }

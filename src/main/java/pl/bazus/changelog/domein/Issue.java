@@ -11,4 +11,5 @@ public abstract class Issue {
     public String getIssueId() {
         return issueId.substring(1);
     }
+
 }

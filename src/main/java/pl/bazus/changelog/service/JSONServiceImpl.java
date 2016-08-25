@@ -3,8 +3,11 @@ package pl.bazus.changelog.service;
 
 import com.oracle.javafx.jmx.json.JSONException;
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import pl.bazus.changelog.service.api.JSONService;
+
+import java.text.MessageFormat;
 
 public class JSONServiceImpl implements JSONService {
     private final static Logger LOGGER = Logger.getLogger(JSONServiceImpl.class);
@@ -31,4 +34,14 @@ public class JSONServiceImpl implements JSONService {
         }
 
     }
+
+    @Override
+    public JSONArray getALLIssues(String respons) {
+        JSONObject resultObj = new JSONObject(respons);
+        JSONArray result = resultObj.getJSONArray("issues");
+        LOGGER.info(MessageFormat.format("Issues count {0}", result.length()));
+        return result;
+    }
+
+
 }

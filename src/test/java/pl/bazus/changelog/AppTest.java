@@ -3,6 +3,7 @@ package pl.bazus.changelog;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import pl.bazus.changelog.service.JSONServiceImpl;
 import pl.bazus.changelog.service.connection.*;
 
 import java.net.MalformedURLException;
@@ -10,7 +11,7 @@ import java.net.URL;
 
 
 public class AppTest {
-    URL url = new URL("http://serwis.bazus.pl/issues/");
+    URL url = new URL("http://serwis.bazus.pl/issues.json");
 
     public AppTest() throws MalformedURLException {
     }
@@ -37,7 +38,10 @@ public class AppTest {
     @Ignore
     @Test
     public void testujUni() throws Exception {
-        new UniRestConnectionMethod().connection(url);
+       String result =  new UniRestConnectionMethod().connection(url);
+        JSONServiceImpl jsonService = new JSONServiceImpl();
+        System.out.println(jsonService.getALLIssues(result));
+
     }
 
 
@@ -47,7 +51,6 @@ public class AppTest {
         ChangeLogGit changeLogGit = new ChangeLogGit();
         String response = changeLogGit.connection(new URL(url));
         changeLogGit.getAllIssues(response).stream().forEach(issue -> System.out.println(issue.getIssueId()));
-
 
     }
 

@@ -4,10 +4,12 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import pl.bazus.changelog.exceptions.NieMoznaSiePolaczyc;
+import pl.bazus.changelog.properties.ConnectionProperties;
 import pl.bazus.changelog.service.api.Connection;
 import pl.bazus.changelog.service.api.ConnectionsType;
 import sun.misc.BASE64Encoder;
 
+import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,9 +18,12 @@ import java.net.URL;
 public class ApacheHttpClientConnectionMethod implements Connection {
     final ConnectionsType connectionsType = ConnectionsType.APACHEHTTPCLIENT;
 
+    @Resource
+    private ConnectionProperties connectionProperties;
+
     @Override
     public String connection(URL url) throws NieMoznaSiePolaczyc, IOException {
-        String user = "jakub.fryga:daniel.12";
+        String user = connectionProperties.getUsername()+":"+connectionProperties.getPassword();
         String encode = "Basic " + new BASE64Encoder().encode(user.getBytes());
 
         DefaultHttpClient httpClient = new DefaultHttpClient();

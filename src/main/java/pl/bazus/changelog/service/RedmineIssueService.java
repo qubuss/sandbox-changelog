@@ -4,6 +4,7 @@ package pl.bazus.changelog.service;
 
 import org.apache.log4j.Logger;
 import pl.bazus.changelog.exceptions.NieMoznaSiePolaczyc;
+import pl.bazus.changelog.service.api.Connection;
 import pl.bazus.changelog.service.api.ConnectionsType;
 import pl.bazus.changelog.service.connection.ApacheHttpClientConnectionMethod;
 import pl.bazus.changelog.service.connection.HttpConnectionMethod;
@@ -13,34 +14,38 @@ import pl.bazus.changelog.service.connection.UniRestConnectionMethod;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.MessageFormat;
 
 
-public class RedmineIssueService {
+public class RedmineIssueService implements Connection{
     private final static Logger LOGGER = Logger.getLogger(RedmineIssueService.class);
-    private URL url;
     private ConnectionsType connectionsType;
 
 
-    public RedmineIssueService(String url, ConnectionsType connectionsType) throws MalformedURLException {
-        this.url = new URL(url);
+    public RedmineIssueService(ConnectionsType connectionsType) throws MalformedURLException {
         this.connectionsType = connectionsType;
     }
 
-    public String getIssueFromRedmine(){
+    @Override
+    public String connection(URL url) throws NieMoznaSiePolaczyc, IOException {
         String response = null;
 
         try {
             switch (connectionsType){
                 case HTTPCONNECTION:
+                    LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
                     response = new HttpConnectionMethod().connection(url);
                     break;
                 case APACHEHTTPCLIENT:
+                    LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
                     response = new ApacheHttpClientConnectionMethod().connection(url);
                     break;
                 case RESTTAMPLATE:
+                    LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
                     response = new RestTemplateConnectionMethod().connection(url);
                     break;
                 case UNIREST:
+                    LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
                     response = new UniRestConnectionMethod().connection(url);
                     break;
                 default:

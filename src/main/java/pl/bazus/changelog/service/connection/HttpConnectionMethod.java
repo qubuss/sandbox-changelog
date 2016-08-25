@@ -1,10 +1,12 @@
 package pl.bazus.changelog.service.connection;
 
 import pl.bazus.changelog.exceptions.NieMoznaSiePolaczyc;
+import pl.bazus.changelog.properties.ConnectionProperties;
 import pl.bazus.changelog.service.api.Connection;
 import pl.bazus.changelog.service.api.ConnectionsType;
 import sun.misc.BASE64Encoder;
 
+import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,9 +20,12 @@ public class HttpConnectionMethod implements Connection {
     final ConnectionsType connectionsType = ConnectionsType.HTTPCONNECTION;
     final String USER_AGENT = "Mozilla/5.0";
 
+    @Resource
+    private ConnectionProperties connectionProperties;
+
     @Override
     public String connection(URL url) throws NieMoznaSiePolaczyc, IOException {
-        String user = "jakub.fryga:daniel.12";
+        String user = connectionProperties.getUsername()+":"+connectionProperties.getPassword();
         String encode = "Basic " + new BASE64Encoder().encode(user.getBytes());
 
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

@@ -11,6 +11,7 @@ import pl.bazus.changelog.service.RedmineIssueService;
 import pl.bazus.changelog.service.api.ConnectionsType;
 
 import javax.annotation.Resource;
+import java.net.URL;
 import java.text.MessageFormat;
 
 @RestController
@@ -27,8 +28,8 @@ public class IssueFieldController {
         LOGGER.info(MessageFormat.format("Pobieram pole: {0} id issue: {1}", field, id));
 
         String url = connectionProperties.getUrlRedmine() + id + ".json";
-        RedmineIssueService redmineIssueService = new RedmineIssueService(url, ConnectionsType.UNIREST);
-        String issue = redmineIssueService.getIssueFromRedmine();
+        RedmineIssueService redmineIssueService = new RedmineIssueService(ConnectionsType.UNIREST);
+        String issue = redmineIssueService.connection(new URL(url));
         JSONServiceImpl jsonService = new JSONServiceImpl();
         jsonService.setResponse(issue);
         String fieldResult = jsonService.getFieldFromIssue(field);

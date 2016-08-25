@@ -1,0 +1,6 @@
+connection:
+  username: jakub.fryga
+  password: daniel.12
+  urlRedmine: http://serwis.bazus.pl/issues/
+  urlChangelogGit: http://git.bazus.pl:8100/?repo=projekty/bazus.git
+  urlChangelogGit150: http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=10

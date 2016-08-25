@@ -10,7 +10,7 @@ import java.net.URL;
 
 
 public class AppTest {
-    URL url = new URL("http://serwis.bazus.pl/issues/32439.json");
+    URL url = new URL("http://serwis.bazus.pl/issues/");
 
     public AppTest() throws MalformedURLException {
     }
@@ -46,7 +46,7 @@ public class AppTest {
         String url = "http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=10";
         ChangeLogGit changeLogGit = new ChangeLogGit();
         String response = changeLogGit.connection(new URL(url));
-        changeLogGit.getAllIssues(response).stream().forEach(issue -> System.out.println(issue.toString()));
+        changeLogGit.getAllIssues(response).stream().forEach(issue -> System.out.println(issue.getIssueId()));
 
 
     }

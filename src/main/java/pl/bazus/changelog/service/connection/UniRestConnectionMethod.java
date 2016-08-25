@@ -3,6 +3,7 @@ package pl.bazus.changelog.service.connection;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.GetRequest;
+import com.oracle.javafx.jmx.json.JSONException;
 import pl.bazus.changelog.exceptions.NieMoznaSiePolaczyc;
 import pl.bazus.changelog.service.api.Connection;
 import pl.bazus.changelog.service.api.ConnectionsType;
@@ -18,11 +19,13 @@ public class UniRestConnectionMethod implements Connection {
         gr.basicAuth("jakub.fryga", "daniel.12");
         String respone = null;
         try {
-            respone = gr.asJson().getBody().getObject().toString();
+            respone = gr.asString().getBody(); //gr.asJson().getBody().getObject().toString();
         } catch (UnirestException e) {
             e.printStackTrace();
-        }
+        } catch (JSONException ej){
 
+        }
+        System.out.println(respone);
 
         return respone;
     }

@@ -15,6 +15,7 @@ import pl.bazus.changelog.service.ChangelogGitService;
 
 import javax.annotation.Resource;
 import java.net.URL;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,10 +40,10 @@ public class FieldFromAllIssues {
         JSONServiceImpl jsonService = new JSONServiceImpl();
 
         for (Issue issue : lista) {
-            urlRedmine = connectionProperties.getUrlRedmine() + issue.getIssueId() + ".json";
+            urlRedmine = MessageFormat.format("{0}{1}.json", connectionProperties.getUrlRedmine(), issue.getIssueId());
             LOGGER.info(urlRedmine);
             redmineIssueService = new RedmineIssueService(ConnectionsType.UNIREST);
-            String response = redmineIssueService.connection(new URL(urlRedmine));
+            String response = redmineIssueService.connection(new URL(urlRedmine), connectionProperties.getUsername(), connectionProperties.getPassword());
             jsonService.setResponse(response);
             String filedResult = jsonService.getFieldFromIssue(field);
             resultMAP.put(issue.getIssueId(), filedResult);

@@ -22,14 +22,14 @@ public class IssueFieldController {
     private ConnectionProperties connectionProperties;
 
     @RequestMapping(path = "/getFieldFromIssue", method = RequestMethod.GET)
-    public String getFieldFromIssue(@RequestParam(value = "idIssue", defaultValue = "") Integer id,
+    public String getFieldFromIssue(@RequestParam(value = "idIssue", defaultValue = "") String id,
                                     @RequestParam(value = "fieldName", defaultValue = "subject") String field) throws Exception {
 
         LOGGER.info(MessageFormat.format("Pobieram pole: {0} id issue: {1}", field, id));
 
-        String url = connectionProperties.getUrlRedmine() + id + ".json";
+        String url = MessageFormat.format("{0}{1}.json", connectionProperties.getUrlRedmine(), id);
         RedmineIssueService redmineIssueService = new RedmineIssueService(ConnectionsType.UNIREST);
-        String issue = redmineIssueService.connection(new URL(url));
+        String issue = redmineIssueService.connection(new URL(url), connectionProperties.getUsername(), connectionProperties.getPassword());
         JSONServiceImpl jsonService = new JSONServiceImpl();
         jsonService.setResponse(issue);
         String fieldResult = jsonService.getFieldFromIssue(field);

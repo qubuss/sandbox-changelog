@@ -25,10 +25,15 @@ public class JSONServiceImpl implements JSONService {
     public String getFieldFromIssue(String field) {
         JSONObject responseJSONObject;// = new JSONObject(response);
         try{
-            responseJSONObject = new JSONObject(response);
-            JSONObject jsonObject = responseJSONObject.getJSONObject("issue");
-            String resultObject = jsonObject.getString(field);
+            String resultObject = "";
+            if(!response.equals(" ")) {
+                responseJSONObject = new JSONObject(response);
+                JSONObject jsonObject = responseJSONObject.getJSONObject("issue");
+                resultObject = jsonObject.getString(field);
+
+            }
             return resultObject.toString();
+
         }catch (JSONException e){
             return "nie moge pobrac";
         }

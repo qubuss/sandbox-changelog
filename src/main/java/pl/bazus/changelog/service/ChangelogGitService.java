@@ -18,7 +18,7 @@ public class ChangelogGitService {
         Issue issue;
         List<Issue> lista = Lists.newArrayList();
         Set<String> resultSet = Sets.newHashSet();
-        String pattern = "(#{1}[0-9]{4,9})";
+        String pattern = "(#{1}[0-9]{1,9})";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(response.substring(response.indexOf("OUTPUT:")));
 

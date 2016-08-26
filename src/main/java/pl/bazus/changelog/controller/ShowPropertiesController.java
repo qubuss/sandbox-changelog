@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 @RestController
 public class ShowPropertiesController {
+
     @Resource
     private ConnectionProperties connectionProperties;
 

@@ -1,6 +1,5 @@
 package pl.bazus.changelog.service.connection;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;

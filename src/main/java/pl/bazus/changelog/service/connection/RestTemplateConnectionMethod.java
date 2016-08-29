@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.web.client.RestTemplate;
-import pl.bazus.changelog.exceptions.BladPodczasPobieraniaDanych;
 import pl.bazus.changelog.exceptions.NieMoznaSiePolaczyc;
 import pl.bazus.changelog.service.api.Connection;
 import pl.bazus.changelog.service.api.ConnectionsType;

@@ -23,7 +23,7 @@ public class JSONServiceImpl implements JSONService {
     }
 
     @Override
-    public String getFieldFromIssue(String field) throws BladJSON{
+    public String getFieldFromIssue(String field) throws BladJSON {
         JSONObject responseJSONObject;// = new JSONObject(response);
         try {
             String resultObject = "";

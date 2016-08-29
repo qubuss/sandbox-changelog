@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class ChangelogGitService {
     private final static Logger LOGGER = Logger.getLogger(ChangelogGitService.class);
 
-    public List<Issue> getAllIssues(String response) throws NieMoznaPobracDanychZGit{
+    public List<Issue> getAllIssues(String response) throws NieMoznaPobracDanychZGit {
         Issue issue;
         List<Issue> lista = Lists.newArrayList();
         Set<String> resultSet = Sets.newHashSet();

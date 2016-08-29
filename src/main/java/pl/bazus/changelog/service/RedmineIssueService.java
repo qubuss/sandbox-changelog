@@ -11,7 +11,6 @@ import pl.bazus.changelog.service.connection.RestTemplateConnectionMethod;
 import pl.bazus.changelog.service.connection.UniRestConnectionMethod;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 
@@ -22,6 +21,7 @@ public class RedmineIssueService implements Connection {
 
 
     public RedmineIssueService(ConnectionsType connectionsType) {
+        LOGGER.info("Tworze obiekt RedmineIssueService");
         this.connectionsType = connectionsType;
     }
 
@@ -56,7 +56,7 @@ public class RedmineIssueService implements Connection {
     }
 
     @Override
-    public String connection(URL url, String username, String password) throws Exception {
+    public String connection(URL url, String username, String password) throws NieMoznaSiePolaczyc, IOException {
         String response = null;
         LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
         try {

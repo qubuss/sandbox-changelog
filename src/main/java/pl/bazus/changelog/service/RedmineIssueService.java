@@ -29,23 +29,19 @@ public class RedmineIssueService implements Connection{
     @Override
     public String connection(URL url) throws NieMoznaSiePolaczyc, IOException {
         String response = null;
-
+        LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
         try {
             switch (connectionsType){
                 case HTTPCONNECTION:
-                    LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
                     response = new HttpConnectionMethod().connection(url);
                     break;
                 case APACHEHTTPCLIENT:
-                    LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
                     response = new ApacheHttpClientConnectionMethod().connection(url);
                     break;
                 case RESTTAMPLATE:
-                    LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
                     response = new RestTemplateConnectionMethod().connection(url);
                     break;
                 case UNIREST:
-                    LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
                     response = new UniRestConnectionMethod().connection(url);
                     break;
                 default:
@@ -63,23 +59,19 @@ public class RedmineIssueService implements Connection{
     @Override
     public String connection(URL url, String username, String password) throws Exception {
         String response = null;
-
+        LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
         try {
             switch (connectionsType){
                 case HTTPCONNECTION:
-                    LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
                     response = new HttpConnectionMethod().connection(url, username, password);
                     break;
                 case APACHEHTTPCLIENT:
-                    LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
                     response = new ApacheHttpClientConnectionMethod().connection(url, username, password);
                     break;
                 case RESTTAMPLATE:
-                    LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
                     response = new RestTemplateConnectionMethod().connection(url, username, password);
                     break;
                 case UNIREST:
-                    LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
                     response = new UniRestConnectionMethod().connection(url, username, password);
                     break;
                 default:

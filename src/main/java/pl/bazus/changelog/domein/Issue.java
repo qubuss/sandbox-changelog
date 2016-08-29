@@ -1,6 +1,8 @@
 package pl.bazus.changelog.domein;
 
+import lombok.Data;
 
+@Data
 public abstract class Issue {
     String issueId;
 

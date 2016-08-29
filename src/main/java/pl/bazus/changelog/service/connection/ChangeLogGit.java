@@ -13,12 +13,9 @@ import java.net.URL;
 public class ChangeLogGit implements Connection {
     private final static Logger LOGGER = Logger.getLogger(ChangeLogGit.class);
 
-    @Resource
-    private ConnectionProperties connectionProperties;
 
     @Override
     public String connection(URL url) throws NieMoznaSiePolaczyc, IOException {
-        System.out.println(connectionProperties.toString());
         String respone;
         HttpConnectionMethod httpConnectionMethod = new HttpConnectionMethod();
         respone = httpConnectionMethod.connection(url);

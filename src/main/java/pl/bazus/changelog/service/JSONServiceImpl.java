@@ -13,7 +13,7 @@ public class JSONServiceImpl implements JSONService {
     private final static Logger LOGGER = Logger.getLogger(JSONServiceImpl.class);
     private String response;
 
-    public JSONServiceImpl(){
+    public JSONServiceImpl() {
         LOGGER.info("Tworzę JSONSerwis");
     }
 
@@ -24,17 +24,17 @@ public class JSONServiceImpl implements JSONService {
     @Override
     public String getFieldFromIssue(String field) {
         JSONObject responseJSONObject;// = new JSONObject(response);
-        try{
+        try {
             String resultObject = "";
-            if(!response.equals(" ")) {
+            if (!response.equals(" ")) {
                 responseJSONObject = new JSONObject(response);
                 JSONObject jsonObject = responseJSONObject.getJSONObject("issue");
                 resultObject = jsonObject.getString(field);
 
             }
-            return resultObject.toString();
+            return resultObject;
 
-        }catch (JSONException e){
+        } catch (JSONException e) {
             return "nie moge pobrac";
         }
 

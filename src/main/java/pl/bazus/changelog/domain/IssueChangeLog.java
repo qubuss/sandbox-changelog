@@ -1,4 +1,4 @@
-package pl.bazus.changelog.domein;
+package pl.bazus.changelog.domain;
 
 import lombok.Data;
 

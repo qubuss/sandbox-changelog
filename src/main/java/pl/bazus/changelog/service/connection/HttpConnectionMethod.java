@@ -3,7 +3,7 @@ package pl.bazus.changelog.service.connection;
 import pl.bazus.changelog.exceptions.NieMoznaSiePolaczyc;
 import pl.bazus.changelog.service.api.Connection;
 import pl.bazus.changelog.service.api.ConnectionsType;
-import sun.misc.BASE64Encoder;
+import pl.bazus.changelog.service.utils.MyBasicAuth;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,26 +27,25 @@ public class HttpConnectionMethod implements Connection {
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
+        String response = getResponse(con);
 
-        StringBuffer response = new StringBuffer();
-        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        br.lines().forEach(s -> response.append(s));
-        br.close();
-
-        return response.toString();
+        return response;
     }
 
     @Override
     public String connection(URL url, String username, String password) throws Exception {
 
-        String user = username+":"+password;
-        String encode = "Basic " + new BASE64Encoder().encode(user.getBytes());
-
+        String encode = new MyBasicAuth().doBasicAuth(username, password);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestProperty("Authorization", encode);
         con.setRequestMethod("GET");
 
+        String response = getResponse(con);
 
+        return response;
+    }
+
+    private String getResponse(HttpURLConnection con) throws IOException {
         StringBuffer response = new StringBuffer();
         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
         br.lines().forEach(s -> response.append(s));

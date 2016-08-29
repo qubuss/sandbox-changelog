@@ -1,7 +1,6 @@
 package pl.bazus.changelog.service;
 
 
-
 import org.apache.log4j.Logger;
 import pl.bazus.changelog.exceptions.NieMoznaSiePolaczyc;
 import pl.bazus.changelog.service.api.Connection;
@@ -17,12 +16,12 @@ import java.net.URL;
 import java.text.MessageFormat;
 
 
-public class RedmineIssueService implements Connection{
+public class RedmineIssueService implements Connection {
     private final static Logger LOGGER = Logger.getLogger(RedmineIssueService.class);
-    private ConnectionsType connectionsType;
+    private final ConnectionsType connectionsType;
 
 
-    public RedmineIssueService(ConnectionsType connectionsType) throws MalformedURLException {
+    public RedmineIssueService(ConnectionsType connectionsType) {
         this.connectionsType = connectionsType;
     }
 
@@ -31,7 +30,7 @@ public class RedmineIssueService implements Connection{
         String response = null;
         LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
         try {
-            switch (connectionsType){
+            switch (connectionsType) {
                 case HTTPCONNECTION:
                     response = new HttpConnectionMethod().connection(url);
                     break;
@@ -61,7 +60,7 @@ public class RedmineIssueService implements Connection{
         String response = null;
         LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
         try {
-            switch (connectionsType){
+            switch (connectionsType) {
                 case HTTPCONNECTION:
                     response = new HttpConnectionMethod().connection(url, username, password);
                     break;

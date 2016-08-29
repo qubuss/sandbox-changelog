@@ -3,8 +3,8 @@ package pl.bazus.changelog.service;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.log4j.Logger;
-import pl.bazus.changelog.domein.Issue;
-import pl.bazus.changelog.domein.IssueChangeLog;
+import pl.bazus.changelog.domain.Issue;
+import pl.bazus.changelog.domain.IssueChangeLog;
 
 import java.util.List;
 import java.util.Set;
@@ -24,12 +24,12 @@ public class ChangelogGitService {
 
         while (m.find()) {
             issue = new IssueChangeLog(m.group());
-            if(resultSet.add(issue.getIssueId())){
+            if (resultSet.add(issue.getIssueId())) {
                 lista.add(issue);
             }
 
         }
-        LOGGER.info("Ilość issue w changeLOG git "+ lista.size());
+        LOGGER.info("Ilość issue w changeLOG git " + lista.size());
 
         return lista;
     }

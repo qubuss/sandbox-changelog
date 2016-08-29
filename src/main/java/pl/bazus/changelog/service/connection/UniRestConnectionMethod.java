@@ -17,13 +17,7 @@ public class UniRestConnectionMethod implements Connection {
     public String connection(URL url) throws NieMoznaSiePolaczyc, IOException {
 
         GetRequest gr = Unirest.get(url.toString());
-        String respone = null;
-        try {
-            respone = gr.asString().getBody();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
-        System.out.println(respone);
+        String respone = getResponse(gr);
         return respone;
     }
 
@@ -31,13 +25,18 @@ public class UniRestConnectionMethod implements Connection {
     public String connection(URL url, String username, String password) throws Exception {
         GetRequest gr = Unirest.get(url.toString());
         gr.basicAuth(username, password);
+        String respone = getResponse(gr);
+
+        return respone;
+    }
+
+    private String getResponse(GetRequest gr) throws NieMoznaSiePolaczyc {
         String respone = null;
         try {
             respone = gr.asString().getBody();
         } catch (UnirestException e) {
-            e.printStackTrace();
+            throw new NieMoznaSiePolaczyc();
         }
-
         return respone;
     }
 }

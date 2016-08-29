@@ -1,6 +1,4 @@
-package pl.bazus.changelog.domein;
-
-import lombok.Data;
+package pl.bazus.changelog.domain;
 
 
 public class IssueRedmine extends Issue {

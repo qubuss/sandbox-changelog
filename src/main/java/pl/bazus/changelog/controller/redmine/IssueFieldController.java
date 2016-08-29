@@ -1,39 +1,26 @@
 package pl.bazus.changelog.controller.redmine;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.bazus.changelog.properties.ConnectionProperties;
-import pl.bazus.changelog.service.JSONServiceImpl;
-import pl.bazus.changelog.service.RedmineIssueService;
-import pl.bazus.changelog.service.api.ConnectionsType;
-
-import javax.annotation.Resource;
-import java.net.URL;
-import java.text.MessageFormat;
+import pl.bazus.changelog.service.controller.ReadFromRedmine;
 
 @RestController
 public class IssueFieldController {
     private final static Logger LOGGER = Logger.getLogger(IssueFieldController.class);
 
-    @Resource
-    private ConnectionProperties connectionProperties;
+    @Autowired
+    private ReadFromRedmine readFromRedmine;
 
     @RequestMapping(path = "/getFieldFromIssue", method = RequestMethod.GET)
     public String getFieldFromIssue(@RequestParam(value = "idIssue", defaultValue = "") String id,
                                     @RequestParam(value = "fieldName", defaultValue = "subject") String field) throws Exception {
 
-        LOGGER.info(MessageFormat.format("Pobieram pole: {0} id issue: {1}", field, id));
+        String result = readFromRedmine.getFieldFromIssue(id, field);
 
-        String url = MessageFormat.format("{0}{1}.json", connectionProperties.getUrlRedmine(), id);
-        RedmineIssueService redmineIssueService = new RedmineIssueService(ConnectionsType.UNIREST);
-        String issue = redmineIssueService.connection(new URL(url), connectionProperties.getUsername(), connectionProperties.getPassword());
-        JSONServiceImpl jsonService = new JSONServiceImpl();
-        jsonService.setResponse(issue);
-        String fieldResult = jsonService.getFieldFromIssue(field);
-
-        return MessageFormat.format("#{0} {1}: {2}", id, field, fieldResult);
+        return result;
     }
 }

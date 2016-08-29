@@ -19,9 +19,7 @@ public class RestTemplateConnectionMethod implements Connection {
     public String connection(URL url) throws NieMoznaSiePolaczyc, IOException {
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity(url.toString(), String.class);
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(response.getBody());
+        JsonNode root = getResponse(url, restTemplate);
 
         return root.toString();
     }
@@ -30,10 +28,14 @@ public class RestTemplateConnectionMethod implements Connection {
     public String connection(URL url, String username, String password) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor(username, password));
-        ResponseEntity<String> response = restTemplate.getForEntity(url.toString(), String.class);
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(response.getBody());
+        JsonNode root = getResponse(url, restTemplate);
 
         return root.toString();
+    }
+
+    private JsonNode getResponse(URL url, RestTemplate restTemplate) throws IOException {
+        ResponseEntity<String> response = restTemplate.getForEntity(url.toString(), String.class);
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readTree(response.getBody());
     }
 }

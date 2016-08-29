@@ -7,5 +7,6 @@ import java.net.URL;
 
 public interface Connection {
     String connection(URL url) throws NieMoznaSiePolaczyc, IOException;
+
     String connection(URL url, String username, String password) throws Exception;
 }

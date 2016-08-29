@@ -1,5 +1,6 @@
 package pl.bazus.changelog.service.connection;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -28,7 +29,7 @@ public class ApacheHttpClientConnectionMethod implements Connection {
     }
 
     @Override
-    public String connection(URL url, String username, String password) throws Exception {
+    public String connection(URL url, String username, String password) throws NieMoznaSiePolaczyc, IOException {
 
         String encode = new MyBasicAuth().doBasicAuth(username, password);
         HttpClient httpClient = HttpClientBuilder.create().build();

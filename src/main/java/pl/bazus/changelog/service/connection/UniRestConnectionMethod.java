@@ -22,7 +22,7 @@ public class UniRestConnectionMethod implements Connection {
     }
 
     @Override
-    public String connection(URL url, String username, String password) throws Exception {
+    public String connection(URL url, String username, String password) throws NieMoznaSiePolaczyc, IOException {
         GetRequest gr = Unirest.get(url.toString());
         gr.basicAuth(username, password);
         String respone = getResponse(gr);

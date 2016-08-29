@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.bazus.changelog.exceptions.BladPodczasPobieraniaDanych;
 import pl.bazus.changelog.service.controller.ReadFromRedmine;
 
 @RestController
@@ -17,9 +18,14 @@ public class IssueFieldController {
 
     @RequestMapping(path = "/getFieldFromIssue", method = RequestMethod.GET)
     public String getFieldFromIssue(@RequestParam(value = "idIssue", defaultValue = "") String id,
-                                    @RequestParam(value = "fieldName", defaultValue = "subject") String field) throws Exception {
+                                    @RequestParam(value = "fieldName", defaultValue = "subject") String field) throws BladPodczasPobieraniaDanych {
 
-        String result = readFromRedmine.getFieldFromIssue(id, field);
+        String result = null;
+        try {
+            result = readFromRedmine.getFieldFromIssue(id, field);
+        } catch (Exception e) {
+            throw new BladPodczasPobieraniaDanych();
+        }
 
         return result;
     }

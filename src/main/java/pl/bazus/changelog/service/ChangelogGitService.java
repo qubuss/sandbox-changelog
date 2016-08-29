@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import org.apache.log4j.Logger;
 import pl.bazus.changelog.domain.Issue;
 import pl.bazus.changelog.domain.IssueChangeLog;
+import pl.bazus.changelog.exceptions.NieMoznaPobracDanychZGit;
 
 import java.util.List;
 import java.util.Set;
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
 public class ChangelogGitService {
     private final static Logger LOGGER = Logger.getLogger(ChangelogGitService.class);
 
-    public List<Issue> getAllIssues(String response) {
+    public List<Issue> getAllIssues(String response) throws NieMoznaPobracDanychZGit{
         Issue issue;
         List<Issue> lista = Lists.newArrayList();
         Set<String> resultSet = Sets.newHashSet();

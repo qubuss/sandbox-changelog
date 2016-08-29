@@ -5,6 +5,9 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import pl.bazus.changelog.domain.Issue;
 import pl.bazus.changelog.domain.IssueRedmine;
+import pl.bazus.changelog.exceptions.BladPodczasPobieraniaDanych;
+import pl.bazus.changelog.exceptions.NieIstniejeIssue;
+import pl.bazus.changelog.exceptions.NieMoznaSiePolaczyc;
 import pl.bazus.changelog.properties.ConnectionProperties;
 import pl.bazus.changelog.service.ChangelogGitService;
 import pl.bazus.changelog.service.JSONServiceImpl;
@@ -13,6 +16,8 @@ import pl.bazus.changelog.service.api.ConnectionsType;
 import pl.bazus.changelog.service.connection.ChangeLogGit;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -28,14 +33,25 @@ public class ReadFromRedmine {
 
     public Map<String, String> getFieldFromAllIssue(String field) throws Exception {
         LOGGER.info("Zaczynam pobierać dane");
-        String responseGit = new ChangeLogGit().connection(new URL(connectionProperties.getUrlChangelogGit150()));
-        List<Issue> listaGit = new ChangelogGitService().getAllIssues(responseGit);
+        String responseGit = null;
+        List<Issue> listaGit = null;
         Map<String, String> resultMAP = new HashMap<>();
         List<Issue> listaRedmine = Lists.newArrayList();
-
         String urlRedmine;
         RedmineIssueService redmineIssueService;
         JSONServiceImpl jsonService = new JSONServiceImpl();
+
+        try {
+            responseGit = new ChangeLogGit().connection(new URL(connectionProperties.getUrlChangelogGit150()));
+        } catch (NieMoznaSiePolaczyc nieMoznaSiePolaczyc) {
+            nieMoznaSiePolaczyc.getMessage();
+        }
+
+        try {
+            listaGit = new ChangelogGitService().getAllIssues(responseGit);
+        } catch (Exception e) {
+            throw new BladPodczasPobieraniaDanych();
+        }
 
         for (Issue issue : listaGit) {
             urlRedmine = MessageFormat.format("{0}{1}.json", connectionProperties.getUrlRedmine(), issue.getIssueId());

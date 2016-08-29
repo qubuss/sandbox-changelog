@@ -22,7 +22,7 @@ public class ChangeLogGit implements Connection {
     }
 
     @Override
-    public String connection(URL url, String username, String password) throws Exception {
+    public String connection(URL url, String username, String password) throws NieMoznaSiePolaczyc, IOException {
         return null;
     }
 

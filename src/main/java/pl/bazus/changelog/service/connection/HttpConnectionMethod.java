@@ -33,7 +33,7 @@ public class HttpConnectionMethod implements Connection {
     }
 
     @Override
-    public String connection(URL url, String username, String password) throws Exception {
+    public String connection(URL url, String username, String password) throws NieMoznaSiePolaczyc, IOException {
 
         String encode = new MyBasicAuth().doBasicAuth(username, password);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

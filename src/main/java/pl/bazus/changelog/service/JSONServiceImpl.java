@@ -1,9 +1,9 @@
 package pl.bazus.changelog.service;
 
 
-import com.oracle.javafx.jmx.json.JSONException;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import pl.bazus.changelog.exceptions.BladJSON;
 import pl.bazus.changelog.service.api.JSONService;

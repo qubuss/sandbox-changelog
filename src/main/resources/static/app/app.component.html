@@ -1,0 +1,43 @@
+<div style="width: 80%; margin: 0 auto">
+
+    <h1>Angular2 sample app</h1>
+    <hr/>
+
+    <div>
+        <h1>Counter: {{counter}}</h1>
+        <button (click)="addToCounter(1)">increment</button>
+        <button (click)="addToCounter(-1)">decrement</button>
+    </div>
+
+    <div>
+        <button (click)="fetch()" *ngIf="!data">fetch data</button>
+    </div>
+
+    <div *ngIf="data">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>username</th>
+                <th>password</th>
+                <th>urlRedmine</th>
+                <th>urlChangelogGit</th>
+                <th>urlChangelogGit150</th>
+            </tr>
+            <tr>
+                <td>{{data.username}}</td>
+                <td>{{data.password}}</td>
+                <td>{{data.urlRedmine}}</td>
+                <td>{{data.urlChangelogGit}}</td>
+                <td>{{data.urlChangelogGit150}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <p>Jeżeli InteliJ nie widzi klas Angulara to wykonaj z poziomu głównego katalogu projektu następujące polecenie:</p>
+        <pre>npm install</pre>
+        <p>Wymaga to node.js - nie jest to wymagane, ale ułatwi Ci to życie.</p>
+    </div>
+
+    <hr/>
+
+</div>

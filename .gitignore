@@ -7,6 +7,7 @@
 /.idea
 /.settings
 nb-configuration.xml
+node_modules
 src/main/resources/rebel.xml
 src/main/resources/app.eng.properties
 src/main/resources/rebel-remote.xml

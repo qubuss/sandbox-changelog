@@ -13,7 +13,7 @@ public class ShowPropertiesController {
     private ConnectionProperties connectionProperties;
 
     @RequestMapping("/showProperties")
-    public String show() {
-        return connectionProperties.toString();
+    public ConnectionProperties show() {
+        return connectionProperties;
     }
 }

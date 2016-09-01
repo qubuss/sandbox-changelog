@@ -1,9 +1,12 @@
 package pl.bazus.changelog.domain;
 
 
-public class IssueRedmine extends Issue {
+import org.apache.log4j.Logger;
 
-    String subject;
+public class IssueRedmine extends Issue {
+    private final static Logger LOGGER = Logger.getLogger(IssueRedmine.class);
+
+    private String subject;
 
     public IssueRedmine(String issueId) {
         super(issueId);
@@ -15,4 +18,7 @@ public class IssueRedmine extends Issue {
         this.subject = subject;
     }
 
+    public String getSubject() {
+        return subject;
+    }
 }

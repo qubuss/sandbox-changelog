@@ -2,6 +2,30 @@ div {
     margin: 10px;
 }
 
-button {
-    font-weight: bolder;
+button.mainButton {
+    margin-top: 20px;
+    font-family: Arial;
+    background-color: #68ee00;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer; cursor: hand;
+    font-size: 20px;
+}
+button.mainButton:hover {
+    background-color: #4ab3dc;
+}
+button.mainButton:disabled {
+    background-color: #eee;
+    color: #ccc;
+    cursor: auto;
+}
+button.mojeButton{
+    /*margin-top: 10px;*/
+    font-family: Arial;
+    background-color: rgba(88, 252, 255, 0.13);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer; cursor: hand;
 }

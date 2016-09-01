@@ -38,13 +38,12 @@ public class ReadFromRedmine {
         redmineIssueService = new RedmineIssueService(ConnectionsType.UNIREST);
     }
 
-    public Map<String, String> getFieldFromAllIssue(String field) throws Exception {
+    public List<IssueRedmine> getFieldFromAllIssue(String field) throws Exception {
         LOGGER.info("Zaczynam pobierać dane");
         List<Issue> listaGit = null;
         String urlRedmine;
         String filedResult;
-        Map<String, String> resultMAP = new HashMap<>();
-        List<Issue> listaRedmine = Lists.newArrayList();
+        List<IssueRedmine> listaRedmine = Lists.newArrayList();
 
 
         try {
@@ -58,27 +57,28 @@ public class ReadFromRedmine {
 
 
         for (Issue issue : listaGit) {
-            urlRedmine = MessageFormat.format("{0}{1}.json", connectionProperties.getUrlRedmine(), issue.getIssueId());
+            urlRedmine = MessageFormat.format("{0}{1}.json", connectionProperties.getUrlRedmine(), issue.getIssueId().substring(1));
             filedResult = getResponse(field, urlRedmine);
 
-            resultMAP.put(issue.getIssueId(), filedResult);
-            Issue issueRedmine = new IssueRedmine(issue.getIssueId(), filedResult);
+            IssueRedmine issueRedmine = new IssueRedmine(issue.getIssueId(), filedResult);
             listaRedmine.add(issueRedmine);
+
 
         }
 
         LOGGER.info("Kończe pobierać dane");
 
-        return resultMAP;
+        return listaRedmine;
 
     }
 
-    public String getFieldFromIssue(String id, String field) throws Exception {
+    public IssueRedmine getFieldFromIssue(String id, String field) throws Exception {
         LOGGER.info(MessageFormat.format("Pobieram pole: {0} id issue: {1}", field, id));
         String url = MessageFormat.format("{0}{1}.json", connectionProperties.getUrlRedmine(), id);
         String fieldResult = getResponse(field, url);
+        IssueRedmine result = new IssueRedmine(id, fieldResult);
 
-        return MessageFormat.format("#{0} {1}: {2}", id, field, fieldResult);
+        return result;
     }
 
     private String getResponse(String field, String urlRedmine) throws IOException {

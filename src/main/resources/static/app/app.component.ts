@@ -9,39 +9,55 @@ import {Http} from "@angular/http";
 })
 export class AppComponent implements OnInit {
 
-    private counter: Number;
-    private data: IConnectionProperties;
+    private data: IIssues[] = [];
+    private czy = false;
+
 
     constructor(private http: Http) {
-        this.counter = 0;
     }
 
-    private addToCounter(value: Number): void {
-        this.counter += value;
-    }
-
-    private fetch(): void {
-        this.http.get('/showProperties')
+    private getAllIssueField(): void {
+        this.http.get('/getFieldFromAllIssues')
             .subscribe(
                 data => {
-                    this.data = data.json() as IConnectionProperties;
+                    this.data = data.json() as IIssues[];
+                    console.info(data);
                 },
                 err => {
                     console.error('An error occurred', err);
                     alert('An error occurred!!!');
                 }
             );
+
     }
+
+    private getIssueField(idIssie: String): void {
+        this.http.get('/getFieldFromIssue?idIssue='+idIssie)
+            .subscribe(
+                data =>{
+                    this.data.push(data.json() as IIssues);
+                    console.info(this.data);
+                },
+                err => {
+                    console.error('An error occurred', err);
+                    alert('An error occurred!!!');
+                }
+            );
+
+    }
+
 
     ngOnInit(): void {
         console.log('Component AppComponent is up and running');
     }
+
+    private show(): void {
+        this.czy = true;
+    }
 }
 
-export interface IConnectionProperties {
-    username: String,
-    password: String,
-    urlRedmine: String,
-    urlChangelogGit: String,
-    urlChangelogGit150: String
+export interface IIssues {
+    issueId: String,
+    subject: String,
 }
+

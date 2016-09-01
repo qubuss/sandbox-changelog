@@ -25,7 +25,7 @@ public class GitController {
     @Resource
     private ConnectionProperties connectionProperties;
 
-    @RequestMapping(path = "/getIssuesIDFromGit", method = RequestMethod.GET)
+    @RequestMapping(path = "/getIssuesIDFromGit", method = RequestMethod.GET, produces = "application/json")
     public List<Issue> getIssues(@RequestParam(value = "count", defaultValue = "150") String count) throws NieMoznaPobracDanychZGit {
         String response = null;
         try {

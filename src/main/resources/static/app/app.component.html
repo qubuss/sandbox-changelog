@@ -1,41 +1,35 @@
 <div style="width: 80%; margin: 0 auto">
 
-    <h1>Angular2 sample app</h1>
+    <h1>Rest Api</h1>
     <hr/>
 
     <div>
-        <h1>Counter: {{counter}}</h1>
-        <button (click)="addToCounter(1)">increment</button>
-        <button (click)="addToCounter(-1)">decrement</button>
-    </div>
-
-    <div>
-        <button (click)="fetch()" *ngIf="!data">fetch data</button>
+        <button (click)="getAllIssueField()" class="mainButton" >Get subject from all issues</button>
+        <button  (click)="show()" class="mainButton" ngclass="main">Pokaż konkretne issue</button>
     </div>
 
     <div *ngIf="data">
         <table class="table table-bordered table-hover">
             <tr>
-                <th>username</th>
-                <th>password</th>
-                <th>urlRedmine</th>
-                <th>urlChangelogGit</th>
-                <th>urlChangelogGit150</th>
+                <th>IdIssue</th>
+                <th>Subject</th>
+                <th>Akcja</th>
             </tr>
-            <tr>
-                <td>{{data.username}}</td>
-                <td>{{data.password}}</td>
-                <td>{{data.urlRedmine}}</td>
-                <td>{{data.urlChangelogGit}}</td>
-                <td>{{data.urlChangelogGit150}}</td>
+            <tr *ngFor="let item of data">
+                <td >
+                    <a href="http://10.0.10.31/issues/{{item.issueId.slice(1)}}" target="_blank">{{item.issueId}}</a>
+                </td>
+                <td >{{item.subject}}</td>
+                <td>
+                    <button class="mojeButton">Pokaz url</button>
+                </td>
             </tr>
         </table>
     </div>
 
-    <div>
-        <p>Jeżeli InteliJ nie widzi klas Angulara to wykonaj z poziomu głównego katalogu projektu następujące polecenie:</p>
-        <pre>npm install</pre>
-        <p>Wymaga to node.js - nie jest to wymagane, ale ułatwi Ci to życie.</p>
+    <div *ngIf="czy">
+        <input  #IDISSUE>
+        <button (click)="getIssueField(IDISSUE.value)">Pokaż</button>
     </div>
 
     <hr/>

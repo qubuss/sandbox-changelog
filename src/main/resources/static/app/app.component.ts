@@ -1,5 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Http} from "@angular/http";
+import {IIssues} from "./issue.component"
+import {IBazus} from "./bazus.component"
 
 @Component({
     selector: 'my-app',
@@ -9,18 +11,23 @@ import {Http} from "@angular/http";
 })
 export class AppComponent implements OnInit {
 
-    private data: IIssues[] = [];
-    private czy = false;
+    private dataRedmine: IIssues[] = [];
+    private dataBazus: IBazus[];
+    private pokazDlaIssue = false;
 
 
     constructor(private http: Http) {
     }
 
     private getAllIssueField(): void {
+
+
+        this.pokazDlaIssue = false;
+        this.dataRedmine = [];
         this.http.get('/getFieldFromAllIssues')
             .subscribe(
                 data => {
-                    this.data = data.json() as IIssues[];
+                    this.dataRedmine = data.json() as IIssues[];
                     console.info(data);
                 },
                 err => {
@@ -32,11 +39,14 @@ export class AppComponent implements OnInit {
     }
 
     private getIssueField(idIssie: String): void {
+
+
+        this.dataRedmine = [];
         this.http.get('/getFieldFromIssue?idIssue='+idIssie)
             .subscribe(
                 data =>{
-                    this.data.push(data.json() as IIssues);
-                    console.info(this.data);
+                    this.dataRedmine.push(data.json() as IIssues);
+                    console.info(this.dataRedmine);
                 },
                 err => {
                     console.error('An error occurred', err);
@@ -46,18 +56,37 @@ export class AppComponent implements OnInit {
 
     }
 
+    private getBazusVersion(): void {
+        this.pokazDlaIssue = false;
+        this.dataRedmine = [];
+
+            this.http.get('/getBazusVersion')
+                .subscribe(
+                    data => {
+                        this.dataBazus = data.json() as IBazus[];
+                    },
+                    err => {
+                        console.error('An error occurred', err);
+                        alert('An error occurred!!!');
+                    }
+                );
+    }
+
 
     ngOnInit(): void {
         console.log('Component AppComponent is up and running');
     }
 
     private show(): void {
-        this.czy = true;
+        this.dataRedmine = [];
+        this.pokazDlaIssue = true;
+
     }
+
+    private pokazDodDane(): void {
+
+    }
+
 }
 
-export interface IIssues {
-    issueId: String,
-    subject: String,
-}
 

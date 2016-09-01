@@ -4,33 +4,93 @@
     <hr/>
 
     <div>
-        <button (click)="getAllIssueField()" class="mainButton" >Get subject from all issues</button>
-        <button  (click)="show()" class="mainButton" ngclass="main">Pokaż konkretne issue</button>
+        <button (click)="getAllIssueField()" class="mainButton">Get subject from all issues</button>
+        <button (click)="show()" class="mainButton" >Pokaż konkretne issue</button>
+        <button (click)="getBazusVersion()" class="mainButton" >Pokaż wersje Bazusa</button>
+
     </div>
 
-    <div *ngIf="data">
+    <div *ngIf="pokazDlaIssue">
+        <input #IDISSUE>
+        <button (click)="getIssueField(IDISSUE.value)">Pokaż</button>
+    </div>
+
+    <!--<div *ngIf="dataRedmine.length>0">-->
+        <!--<table class="table table-bordered table-hover">-->
+            <!--<tr>-->
+                <!--<th>IdIssue</th>-->
+                <!--<th>Subject</th>-->
+                <!--<th>Akcja</th>-->
+            <!--</tr>-->
+            <!--<tr *ngFor="let item of dataRedmine">-->
+                <!--<td>-->
+                    <!--<a href="http://10.0.10.31/issues/{{item.issueId.slice(1)}}" target="_blank">{{item.issueId}}</a>-->
+                <!--</td>-->
+                <!--<td>{{item.subject}}</td>-->
+                <!--<td>-->
+                    <!--<button class="mojeButton">Pokaz url</button>-->
+                <!--</td>-->
+            <!--</tr>-->
+        <!--</table>-->
+    <!--</div>-->
+
+    <div *ngIf="dataBazus">
         <table class="table table-bordered table-hover">
             <tr>
-                <th>IdIssue</th>
-                <th>Subject</th>
+                <th>ID wersji</th>
+                <th>Id parent</th>
+                <th>Nazwa(uuid)</th>
+                <th>Data ustanowienia</th>
+                <th>Wersja bazy</th>
+                <th>Twórca</th>
                 <th>Akcja</th>
             </tr>
-            <tr *ngFor="let item of data">
-                <td >
-                    <a href="http://10.0.10.31/issues/{{item.issueId.slice(1)}}" target="_blank">{{item.issueId}}</a>
-                </td>
-                <td >{{item.subject}}</td>
+            <tr *ngFor="let item of dataBazus">
                 <td>
-                    <button class="mojeButton">Pokaz url</button>
+                    {{item.idWersja}}
                 </td>
+                <td>
+                    {{item.idParent}}
+                </td>
+                <td>
+                    {{item.nazwaUUID}}
+                </td>
+                <td>
+                    {{item.dataUstanowienia}}
+                </td>
+                <td>
+                    {{item.wersjaBazy}}
+                </td>
+                <td>
+                    {{item.tworca}}
+                </td>
+                <td>
+                    <button (click)="getAllIssueField()" class="mojeButton">Pokaz szczegóły</button>
+                </td>
+            </tr>
+            <tr >
+                <div *ngIf="dataRedmine.length>0">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>IdIssue</th>
+                            <th>Subject</th>
+                            <th>Akcja</th>
+                        </tr>
+                        <tr *ngFor="let item of dataRedmine">
+                            <td>
+                                <a href="http://10.0.10.31/issues/{{item.issueId.slice(1) }}" target="_blank">{{item.issueId}}</a>
+                            </td>
+                            <td>{{item.subject}}</td>
+                            <td>
+                                <button class="mojeButton">Pokaz url</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </tr>
         </table>
     </div>
 
-    <div *ngIf="czy">
-        <input  #IDISSUE>
-        <button (click)="getIssueField(IDISSUE.value)">Pokaż</button>
-    </div>
 
     <hr/>
 

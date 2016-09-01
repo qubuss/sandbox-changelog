@@ -15,27 +15,27 @@
         <button (click)="getIssueField(IDISSUE.value)">Pokaż</button>
     </div>
 
-    <!--<div *ngIf="dataRedmine.length>0">-->
-        <!--<table class="table table-bordered table-hover">-->
-            <!--<tr>-->
-                <!--<th>IdIssue</th>-->
-                <!--<th>Subject</th>-->
-                <!--<th>Akcja</th>-->
-            <!--</tr>-->
-            <!--<tr *ngFor="let item of dataRedmine">-->
-                <!--<td>-->
-                    <!--<a href="http://10.0.10.31/issues/{{item.issueId.slice(1)}}" target="_blank">{{item.issueId}}</a>-->
-                <!--</td>-->
-                <!--<td>{{item.subject}}</td>-->
-                <!--<td>-->
-                    <!--<button class="mojeButton">Pokaz url</button>-->
-                <!--</td>-->
-            <!--</tr>-->
-        <!--</table>-->
-    <!--</div>-->
+    <div *ngIf="dataRedmine.length>0">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>IdIssue</th>
+                <th>Subject</th>
+                <th>Akcja</th>
+            </tr>
+            <tr *ngFor="let item of dataRedmine">
+                <td>
+                    <a href="http://10.0.10.31/issues/{{item.issueId.slice(1)}}" target="_blank">{{item.issueId}}</a>
+                </td>
+                <td>{{item.subject}}</td>
+                <td>
+                    <button class="mojeButton">Pokaz url</button>
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <div *ngIf="dataBazus">
-        <table class="table table-bordered table-hover">
+        <table id="table" class="table table-bordered table-hover">
             <tr>
                 <th>ID wersji</th>
                 <th>Id parent</th>
@@ -67,26 +67,6 @@
                 <td>
                     <button (click)="getAllIssueField()" class="mojeButton">Pokaz szczegóły</button>
                 </td>
-            </tr>
-            <tr >
-                <div *ngIf="dataRedmine.length>0">
-                    <table class="table table-bordered table-hover">
-                        <tr>
-                            <th>IdIssue</th>
-                            <th>Subject</th>
-                            <th>Akcja</th>
-                        </tr>
-                        <tr *ngFor="let item of dataRedmine">
-                            <td>
-                                <a href="http://10.0.10.31/issues/{{item.issueId.slice(1) }}" target="_blank">{{item.issueId}}</a>
-                            </td>
-                            <td>{{item.subject}}</td>
-                            <td>
-                                <button class="mojeButton">Pokaz url</button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
             </tr>
         </table>
     </div>

@@ -12,7 +12,7 @@ import {IBazus} from "./bazus.component"
 export class AppComponent implements OnInit {
 
     private dataRedmine: IIssues[] = [];
-    private dataBazus: IBazus[];
+    private dataBazus: IBazus[] = [];
     private pokazDlaIssue = false;
 
 
@@ -24,6 +24,8 @@ export class AppComponent implements OnInit {
 
         this.pokazDlaIssue = false;
         this.dataRedmine = [];
+        this.dataBazus = [];
+
         this.http.get('/getFieldFromAllIssues')
             .subscribe(
                 data => {
@@ -40,8 +42,9 @@ export class AppComponent implements OnInit {
 
     private getIssueField(idIssie: String): void {
 
-
         this.dataRedmine = [];
+        this.dataBazus = [];
+
         this.http.get('/getFieldFromIssue?idIssue='+idIssie)
             .subscribe(
                 data =>{
@@ -59,6 +62,7 @@ export class AppComponent implements OnInit {
     private getBazusVersion(): void {
         this.pokazDlaIssue = false;
         this.dataRedmine = [];
+        this.dataBazus = [];
 
             this.http.get('/getBazusVersion')
                 .subscribe(
@@ -80,12 +84,10 @@ export class AppComponent implements OnInit {
     private show(): void {
         this.dataRedmine = [];
         this.pokazDlaIssue = true;
+        this.dataBazus = [];
 
     }
 
-    private pokazDodDane(): void {
-
-    }
 
 
 

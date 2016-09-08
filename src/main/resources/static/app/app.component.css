@@ -3,9 +3,10 @@ div {
 }
 
 button.mainButton {
-    margin-top: 20px;
+    margin-top: 10px;
     font-family: Arial;
-    background-color: #68ee00;
+    color: deepskyblue;
+    background-color: black;
     border: none;
     padding: 5px 10px;
     border-radius: 10px;
@@ -13,19 +14,10 @@ button.mainButton {
     font-size: 20px;
 }
 button.mainButton:hover {
-    background-color: #4ab3dc;
+    background-color: deepskyblue;
+    color: black;
 }
-button.mainButton:disabled {
-    background-color: #eee;
-    color: #ccc;
-    cursor: auto;
-}
-button.mojeButton{
-    /*margin-top: 10px;*/
-    font-family: Arial;
-    background-color: rgba(88, 252, 255, 0.13);
-    border: none;
-    padding: 5px 10px;
-    border-radius: 10px;
-    cursor: pointer; cursor: hand;
+
+button.details-button{
+    border-radius: 5px;
 }

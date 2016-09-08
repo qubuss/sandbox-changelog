@@ -4,38 +4,36 @@
     <hr/>
 
     <div>
-        <button (click)="getAllIssueField()" class="mainButton">Get subject from all issues</button>
-        <button (click)="show()" class="mainButton" >Pokaż konkretne issue</button>
-        <button (click)="getBazusVersion()" class="mainButton" >Pokaż wersje Bazusa</button>
-
+        <button (click)="getAllIssueField()" class="mainButton">Pokaż wszystkie zagadnienia z changeloge</button>
+        <button (click)="showIssueInfo()" class="mainButton">Pokaż konkretne zagadnienie</button>
+        <button (click)="getBazusVersion()" class="mainButton">Pokaż wersje Bazusa</button>
     </div>
+    <hr/>
 
-    <div *ngIf="pokazDlaIssue">
-        <input #IDISSUE>
+    <div *ngIf="pokazPolaDlaIssue">
+        <div>Podaj id zagadnienia</div>
+        <input #IDISSUE title="Id zagadnienia">
         <button (click)="getIssueField(IDISSUE.value)">Pokaż</button>
     </div>
 
-    <div *ngIf="dataRedmine.length>0">
+    <div *ngIf="pokazWszystkieIssue || pokazDlaIssue">
         <table class="table table-bordered table-hover">
             <tr>
                 <th>IdIssue</th>
                 <th>Subject</th>
-                <th>Akcja</th>
             </tr>
             <tr *ngFor="let item of dataRedmine">
                 <td>
                     <a href="http://10.0.10.31/issues/{{item.issueId.slice(1)}}" target="_blank">{{item.issueId}}</a>
                 </td>
                 <td>{{item.subject}}</td>
-                <td>
-                    <button class="mojeButton">Pokaz url</button>
-                </td>
             </tr>
         </table>
     </div>
 
-    <div *ngIf="dataBazus.length>0">
-        <table id="table" class="table table-bordered table-hover">
+    <div class="span12" *ngIf="pokazWersjeBazusa">
+        <table id="tableBazus" class="table table-hover table-condensed table-striped">
+            <thead>
             <tr>
                 <th>ID wersji</th>
                 <th>Id parent</th>
@@ -43,9 +41,13 @@
                 <th>Data ustanowienia</th>
                 <th>Wersja bazy</th>
                 <th>Twórca</th>
-                <th>Akcja</th>
+                <th></th>
+
             </tr>
-            <tr *ngFor="let item of dataBazus">
+            </thead>
+            <tbody *ngFor="let item of dataBazus">
+            <tr id="rowID" class="clickableRow" title="Kliknij aby pokazać szczegóły wersji">
+                <!--(click)="pokazSzczegolyWersjiBazusa(item)">-->
                 <td>
                     {{item.idWersja}}
                 </td>
@@ -65,13 +67,42 @@
                     {{item.tworca}}
                 </td>
                 <td>
-                    <button (click)="getAllIssueField()" class="mojeButton">Pokaz szczegóły</button>
+                    <button (click)="pokazSzczegolyWersjiBazusa(item)" class="details-button">Pokaż</button>
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td colspan="7">
+                    <div *ngIf="item.czyPokazac">
+
+                        <div class="span12 center-pill">
+                            <table class="table table-hover table-condensed table-striped">
+                                <thead>
+                                <tr>
+                                    <th>IdIssue</th>
+                                    <th>Subject</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let itemRedmine of dataRedmine">
+                                    <td>
+                                        <a href="http://10.0.10.31/issues/{{itemRedmine.issueId.slice(1)}}"
+                                           target="_blank">{{itemRedmine.issueId}}</a>
+                                    </td>
+                                    <td>{{itemRedmine.subject}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </td>
             </tr>
+            </tbody>
         </table>
     </div>
 
-
-    <hr/>
-
 </div>
+
+
+

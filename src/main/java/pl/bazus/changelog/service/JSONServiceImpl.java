@@ -5,17 +5,18 @@ import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import pl.bazus.changelog.exceptions.BladJSON;
+import org.springframework.stereotype.Service;
+import pl.bazus.changelog.exceptions.BladJSONException;
 import pl.bazus.changelog.service.api.JSONService;
 
 import java.text.MessageFormat;
 
+@Service
 public class JSONServiceImpl implements JSONService {
     private final static Logger LOGGER = Logger.getLogger(JSONServiceImpl.class);
     private String response;
 
     public JSONServiceImpl() {
-        LOGGER.info("Tworzę JSONSerwis");
     }
 
     public void setResponse(String response) {
@@ -23,8 +24,8 @@ public class JSONServiceImpl implements JSONService {
     }
 
     @Override
-    public String getFieldFromIssue(String field) throws BladJSON {
-        JSONObject responseJSONObject;// = new JSONObject(response);
+    public String getFieldFromIssue(String field) throws BladJSONException {
+        JSONObject responseJSONObject;
         try {
             String resultObject = "";
             if (!response.equals(" ")) {
@@ -36,13 +37,14 @@ public class JSONServiceImpl implements JSONService {
             return resultObject;
 
         } catch (JSONException e) {
-            return "nie moge pobrac";
+            LOGGER.error(e.getMessage());
+            return "Błąd z parsowaniem JSON";
         }
 
     }
 
     @Override
-    public JSONArray getALLIssues(String respons) throws BladJSON {
+    public JSONArray getALLIssues(String respons) throws BladJSONException {
         JSONObject resultObj = new JSONObject(respons);
         JSONArray result = resultObj.getJSONArray("issues");
         LOGGER.info(MessageFormat.format("Issues count {0}", result.length()));

@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
     private pokazPolaDlaIssue = false;
     private pokazWersjeBazusa = false;
     private pokazWszystkieIssue = false;
+    private ladujeDaneShow = false;
 
 
     constructor(private http: Http) {
@@ -26,7 +27,11 @@ export class AppComponent implements OnInit {
         this.hideComponent();
 
         if(this.dataRedmine.length==0){
+            this.ladujeDaneShow = true;
+            console.info(this.ladujeDaneShow);
             this.pobierzDaneZRedmine();
+
+
             console.info("Pobieram dane z Redmine");
         }
         this.pokazWszystkieIssue = true;
@@ -36,10 +41,12 @@ export class AppComponent implements OnInit {
     private getIssueField(idIssie: String): void {
         this.pokazDlaIssue = true;
         this.dataRedmine = [];
-        this.http.get('/getFieldFromIssue?idIssue=' + idIssie)
+        this.ladujeDaneShow = true;
+        this.http.get('/redmine/getFieldFromIssue?idIssue=' + idIssie)
             .subscribe(
                 data => {
                     this.dataRedmine.push(data.json() as IIssues);
+                    this.ladujeDaneShow = false;
                     console.info(this.dataRedmine);
                 },
                 err => {
@@ -54,6 +61,7 @@ export class AppComponent implements OnInit {
         this.hideComponent();
 
         if(this.dataBazus.length==0) {
+            this.ladujeDaneShow = true;
             this.pobierzWersjeBazusa();
             console.info("Pobieram wersje Bazusa");
         }
@@ -61,35 +69,13 @@ export class AppComponent implements OnInit {
         this.pokazWersjeBazusa = true;
     }
 
-    private pobierzWersjeBazusa(): void{
-        this.http.get('/getBazusVersion')
-            .subscribe(
-                data => {
-                    this.dataBazus = data.json() as IBazus[];
-                },
-                err => {
-                    console.error('An error occurred', err);
-                    alert('An error occurred!!!');
-                }
-            );
-    }
-
-
-    private hideComponent(): void {
-        this.pokazDlaIssue = false;
-        this.pokazWersjeBazusa = false;
-        this.pokazWszystkieIssue = false;
-        this.pokazPolaDlaIssue = false;
-        this.dataRedmine = [];
-        this.dataBazus = [];
-
-    }
-
     private pokazSzczegolyWersjiBazusa(item): void {
         item.czyPokazac = !item.czyPokazac;
         if(item.czyPokazac == true) {
             this.dataRedmine = [];
+            this.ladujeDaneShow = true;
             this.pobierzDaneZRedmineDlaWersjiBazusa(item.idWersja, item.idParent);
+
         }else{
             this.dataRedmine = [];
         }
@@ -100,12 +86,26 @@ export class AppComponent implements OnInit {
         this.pokazPolaDlaIssue = true;
     }
 
+    private pobierzWersjeBazusa(): void{
+        this.http.get('/bazus/getBazusVersion')
+            .subscribe(
+                data => {
+                    this.dataBazus = data.json() as IBazus[];
+                    this.ladujeDaneShow=false;
+                },
+                err => {
+                    console.error('An error occurred', err);
+                    alert('An error occurred!!!');
+                }
+            );
+    }
+
     private pobierzDaneZRedmine() {
-        this.http.get('/getFieldFromAllIssues')
+        this.http.get('/redmine/getFieldFromAllIssues')
             .subscribe(
                 data => {
                     this.dataRedmine = data.json() as IIssues[];
-
+                    this.ladujeDaneShow=false;
                     console.info(data);
                 },
                 err => {
@@ -116,11 +116,12 @@ export class AppComponent implements OnInit {
     }
 
     private pobierzDaneZRedmineDlaWersjiBazusa(idWersja, idParent) {
-        this.http.get('/getFieldFromAllIssues')
+        console.info('Pobieram '+idParent+' '+idWersja);
+        this.http.get('/redmine/getFieldFromAllIssues')
             .subscribe(
                 data => {
                     this.dataRedmine = data.json() as IIssues[];
-
+                    this.ladujeDaneShow=false;
                     console.info(data);
                 },
                 err => {
@@ -128,6 +129,16 @@ export class AppComponent implements OnInit {
                     alert('An error occurred!!!');
                 }
             );
+    }
+
+    private hideComponent(): void {
+        this.pokazDlaIssue = false;
+        this.pokazWersjeBazusa = false;
+        this.pokazWszystkieIssue = false;
+        this.pokazPolaDlaIssue = false;
+        this.dataRedmine = [];
+        this.dataBazus = [];
+
     }
 
     ngOnInit(): void {

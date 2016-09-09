@@ -2,7 +2,8 @@ package pl.bazus.changelog.service;
 
 
 import org.apache.log4j.Logger;
-import pl.bazus.changelog.exceptions.NieMoznaSiePolaczyc;
+import org.springframework.stereotype.Service;
+import pl.bazus.changelog.exceptions.NieMoznaSiePolaczycException;
 import pl.bazus.changelog.service.api.Connection;
 import pl.bazus.changelog.service.api.ConnectionsType;
 import pl.bazus.changelog.service.connection.ApacheHttpClientConnectionMethod;
@@ -14,19 +15,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
 
-
+@Service
 public class RedmineIssueService implements Connection {
     private final static Logger LOGGER = Logger.getLogger(RedmineIssueService.class);
     private final ConnectionsType connectionsType;
 
 
-    public RedmineIssueService(ConnectionsType connectionsType) {
+    public RedmineIssueService() {
         LOGGER.info("Tworze obiekt RedmineIssueService");
-        this.connectionsType = connectionsType;
+        this.connectionsType = ConnectionsType.UNIREST;
     }
 
     @Override
-    public String connection(URL url) throws NieMoznaSiePolaczyc, IOException {
+    public String connection(URL url) throws NieMoznaSiePolaczycException, IOException {
         String response = null;
         LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
         try {
@@ -44,19 +45,18 @@ public class RedmineIssueService implements Connection {
                     response = new UniRestConnectionMethod().connection(url);
                     break;
                 default:
-                    return new NieMoznaSiePolaczyc().getMessage();
+                    return new NieMoznaSiePolaczycException().getMessage();
             }
 
-        } catch (NieMoznaSiePolaczyc | IOException nieMoznaSiePolaczyc) {
-            nieMoznaSiePolaczyc.printStackTrace();
+        } catch (NieMoznaSiePolaczycException | IOException e) {
+            LOGGER.error(e.getMessage());
         }
-
 
         return response;
     }
 
     @Override
-    public String connection(URL url, String username, String password) throws NieMoznaSiePolaczyc, IOException {
+    public String connection(URL url, String username, String password) throws NieMoznaSiePolaczycException, IOException {
         String response = null;
         LOGGER.info(MessageFormat.format("Łączę przez {0}", connectionsType));
         try {
@@ -74,11 +74,11 @@ public class RedmineIssueService implements Connection {
                     response = new UniRestConnectionMethod().connection(url, username, password);
                     break;
                 default:
-                    return new NieMoznaSiePolaczyc().getMessage();
+                    return new NieMoznaSiePolaczycException().getMessage();
             }
 
-        } catch (NieMoznaSiePolaczyc | IOException nieMoznaSiePolaczyc) {
-            nieMoznaSiePolaczyc.printStackTrace();
+        } catch (NieMoznaSiePolaczycException | IOException e) {
+            LOGGER.error(e.getMessage());
         }
 
 

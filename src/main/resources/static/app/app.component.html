@@ -10,6 +10,10 @@
     </div>
     <hr/>
 
+    <div *ngIf="ladujeDaneShow">
+        <label><span class="blink">Ładuje dane...</span></label>
+    </div>
+
     <div *ngIf="pokazPolaDlaIssue">
         <div>Podaj id zagadnienia</div>
         <input #IDISSUE title="Id zagadnienia">

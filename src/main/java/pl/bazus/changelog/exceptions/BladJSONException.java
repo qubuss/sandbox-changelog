@@ -1,6 +1,6 @@
 package pl.bazus.changelog.exceptions;
 
-public class BladJSON extends Exception {
+public class BladJSONException extends Exception {
     @Override
     public String getMessage() {
         return "Bład JSON";

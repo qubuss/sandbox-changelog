@@ -1,19 +1,18 @@
 package pl.bazus.changelog.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.bazus.changelog.domain.Issue;
-import pl.bazus.changelog.exceptions.NieMoznaPobracDanychZGit;
-import pl.bazus.changelog.exceptions.NieMoznaSiePolaczyc;
+import pl.bazus.changelog.exceptions.NieMoznaPobracDanychZGitException;
 import pl.bazus.changelog.properties.ConnectionProperties;
-import pl.bazus.changelog.service.ChangelogGitService;
-import pl.bazus.changelog.service.connection.ChangeLogGit;
+import pl.bazus.changelog.service.controller.ChangelogGitService;
 
 import javax.annotation.Resource;
-import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.List;
@@ -25,19 +24,14 @@ public class GitController {
     @Resource
     private ConnectionProperties connectionProperties;
 
-    @RequestMapping(path = "/getIssuesIDFromGit", method = RequestMethod.GET, produces = "application/json")
-    public List<Issue> getIssues(@RequestParam(value = "count", defaultValue = "150") String count) throws NieMoznaPobracDanychZGit {
-        String response = null;
-        try {
-            response = new ChangeLogGit().connection(new URL(MessageFormat.format("{0}&count={1}", connectionProperties.getUrlChangelogGit(), count)));
-        } catch (NieMoznaSiePolaczyc nieMoznaSiePolaczyc) {
-            nieMoznaSiePolaczyc.getMessage();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Autowired
+    private ChangelogGitService changelogGitService;
+
+
+    @RequestMapping(path = "/git/getIssuesIDFromGit", method = RequestMethod.GET, produces = "application/json")
+    public List<Issue> getIssues(@RequestParam(value = "count", defaultValue = "150") String count) throws NieMoznaPobracDanychZGitException, MalformedURLException {
         LOGGER.info("ChangelogGit: " + connectionProperties.getUrlChangelogGit() + "&count=" + count);
-        List<Issue> lista = new ChangelogGitService().getAllIssues(response);
-        return lista;
+        return changelogGitService.connectAndGetAllIssue(new URL(MessageFormat.format("{0}&count={1}", connectionProperties.getUrlChangelogGit(), count)));
     }
 
 }

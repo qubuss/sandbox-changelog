@@ -3,9 +3,9 @@ package pl.bazus.changelog;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import pl.bazus.changelog.exceptions.NieMoznaSiePolaczyc;
+import pl.bazus.changelog.exceptions.NieMoznaSiePolaczycException;
 import pl.bazus.changelog.properties.ConnectionProperties;
-import pl.bazus.changelog.service.ChangelogGitService;
+import pl.bazus.changelog.service.controller.ChangelogGitService;
 import pl.bazus.changelog.service.JSONServiceImpl;
 import pl.bazus.changelog.service.connection.*;
 
@@ -58,14 +58,13 @@ public class AppTest {
     public void test() throws Exception {
         String url = "http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=10";
         ChangeLogGit changeLogGit = new ChangeLogGit();
-        String response = changeLogGit.connection(new URL(url));
-        new ChangelogGitService().getAllIssues(response).forEach(issue -> System.out.println(issue.getIssueId()));
+        new ChangelogGitService().connectAndGetAllIssue(new URL(url)).forEach(issue -> System.out.println(issue.getIssueId()));
 
     }
 
     @Test
-    public void testException() throws NieMoznaSiePolaczyc {
-        throw new NieMoznaSiePolaczyc();
+    public void testException() throws NieMoznaSiePolaczycException {
+        throw new NieMoznaSiePolaczycException();
     }
 
 }

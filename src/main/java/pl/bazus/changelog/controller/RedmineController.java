@@ -3,6 +3,8 @@ package pl.bazus.changelog.controller;
 import com.google.common.collect.Lists;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,8 +20,9 @@ import java.util.List;
 
 
 @RestController
-public class RedmineControler {
-    private final static Logger LOGGER = Logger.getLogger(RedmineControler.class);
+
+public class RedmineController {
+    private final static Logger LOGGER = Logger.getLogger(RedmineController.class);
 
     @Autowired
     private ReadFromRedmineService readFromRedmineService;

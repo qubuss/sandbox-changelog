@@ -1,3 +1,4 @@
+debug: true
 connection:
   username: jakub.fryga
   password: daniel.12

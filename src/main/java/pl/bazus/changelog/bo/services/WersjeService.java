@@ -3,7 +3,10 @@ package pl.bazus.changelog.bo.services;
 import pl.bazus.changelog.domain.EAplikacja;
 import pl.bazus.changelog.domain.IssueRedmine;
 import pl.bazus.changelog.domain.WersjaAplikacjiBazus;
+import pl.bazus.changelog.exceptions.NieMoznaPobracDanychZGitException;
+import pl.bazus.changelog.exceptions.NieMoznaSiePolaczycException;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -11,5 +14,5 @@ import java.util.List;
  */
 public interface WersjeService {
     List<WersjaAplikacjiBazus> getListaWersjiAplikacji(EAplikacja bazus);
-    List<IssueRedmine> szczegolyWersjiAplikacji(EAplikacja bazus, String idWersji, String idParent);
+    List<IssueRedmine> szczegolyWersjiAplikacji(EAplikacja bazus, String idWersji, String idParent) throws NieMoznaPobracDanychZGitException, IOException, NieMoznaSiePolaczycException;
 }

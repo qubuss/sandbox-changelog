@@ -6,13 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.bazus.changelog.domain.Issue;
 import pl.bazus.changelog.domain.IssueRedmine;
-import pl.bazus.changelog.exceptions.*;
+import pl.bazus.changelog.exceptions.BladJSONException;
+import pl.bazus.changelog.exceptions.NieIstniejeIssueException;
+import pl.bazus.changelog.exceptions.NieMoznaPobracDanychZGitException;
+import pl.bazus.changelog.exceptions.NieMoznaSiePolaczycException;
 import pl.bazus.changelog.properties.ConnectionProperties;
 import pl.bazus.changelog.service.JSONServiceImpl;
 import pl.bazus.changelog.service.RedmineIssueService;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.List;
@@ -33,20 +37,17 @@ public class ReadFromRedmineService {
     @Autowired
     private RedmineIssueService redmineIssueService;
 
-    public List<IssueRedmine> getFieldFromAllIssue(String field) throws Exception {
+    public List<IssueRedmine> getFieldFromAllIssue(String field) throws IOException, NieMoznaPobracDanychZGitException, NieMoznaSiePolaczycException {
         LOGGER.info("Zaczynam pobierać dane");
         List<Issue> listaGit;
-        String urlRedmine;
-        String filedResult;
         List<IssueRedmine> listaRedmine = Lists.newArrayList();
 
         listaGit = changelogGitService.connectAndGetAllIssue(new URL(connectionProperties.getUrlChangelogGit150()));
 
         for (Issue issue : listaGit) {
-            urlRedmine = MessageFormat.format("{0}{1}.json", connectionProperties.getUrlRedmine(), issue.getIssueId().substring(1));
-            filedResult = getResponse(field, urlRedmine);
-
-            IssueRedmine issueRedmine = new IssueRedmine(issue.getIssueId(), filedResult);
+            IssueRedmine issueRedmine = new IssueRedmine(issue.getIssueId(),
+                    getResponse(field, getUrlStringForIssue(issue))
+                    );
             listaRedmine.add(issueRedmine);
 
 
@@ -56,6 +57,10 @@ public class ReadFromRedmineService {
 
         return listaRedmine;
 
+    }
+
+    private String getUrlStringForIssue(Issue issue) {
+        return MessageFormat.format("{0}{1}.json", connectionProperties.getUrlRedmine(), issue.getIssueId().substring(1));
     }
 
     public IssueRedmine getFieldFromIssue(String id, String field) throws NieIstniejeIssueException, IOException {

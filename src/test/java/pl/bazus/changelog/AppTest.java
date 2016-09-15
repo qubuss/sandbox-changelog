@@ -5,7 +5,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import pl.bazus.changelog.exceptions.NieMoznaSiePolaczycException;
 import pl.bazus.changelog.properties.ConnectionProperties;
-import pl.bazus.changelog.service.controller.ChangelogGitService;
+import pl.bazus.changelog.service.controller.ChangelogGitServiceImpl;
 import pl.bazus.changelog.service.JSONServiceImpl;
 import pl.bazus.changelog.service.connection.*;
 
@@ -58,7 +58,7 @@ public class AppTest {
     public void test() throws Exception {
         String url = "http://git.bazus.pl:8100/?repo=projekty/bazus.git&count=10";
         ChangeLogGit changeLogGit = new ChangeLogGit();
-        new ChangelogGitService().connectAndGetAllIssue(new URL(url)).forEach(issue -> System.out.println(issue.getIssueId()));
+        new ChangelogGitServiceImpl().connectAndGetAllIssue(new URL(url)).forEach(issue -> System.out.println(issue.getIssueId()));
 
     }
 

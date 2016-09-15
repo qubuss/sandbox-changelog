@@ -1,12 +1,12 @@
 package pl.bazus.changelog.exceptions;
 
-public class NieMoznaSiePolaczycException extends Exception {
+import pl.bazus.changelog.bo.exceptions.ChangelogSupplierException;
+
+public class NieMoznaSiePolaczycException extends ChangelogSupplierException {
+
     public NieMoznaSiePolaczycException() {
-        super();
+        super("Błąd z połączeniem");
     }
 
-    @Override
-    public String getMessage() {
-        return "Błąd z połączeniem";
-    }
 }
+

@@ -1,8 +1,11 @@
 package pl.bazus.changelog.exceptions;
 
-public class NieMoznaPobracDanychZGitException extends Exception {
-    @Override
-    public String getMessage() {
-        return "Błąd podczas pobierania danych z changelog Git";
+import pl.bazus.changelog.bo.exceptions.ChangelogSupplierException;
+
+public class NieMoznaPobracDanychZGitException extends ChangelogSupplierException {
+
+    public NieMoznaPobracDanychZGitException() {
+        super("Błąd podczas pobierania danych z changelog Git");
     }
+
 }

@@ -3,7 +3,7 @@ package pl.bazus.changelog.domain;
 import lombok.Data;
 
 @Data
-public class Bazus {
+public class WersjaAplikacjiBazus {
     String idWersja;
     String idParent;
     String nazwaUUID;

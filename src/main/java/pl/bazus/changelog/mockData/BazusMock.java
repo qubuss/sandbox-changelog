@@ -1,25 +1,25 @@
 package pl.bazus.changelog.mockData;
 
 import com.google.common.collect.Lists;
-import pl.bazus.changelog.domain.Bazus;
+import pl.bazus.changelog.domain.WersjaAplikacjiBazus;
 
 import java.util.List;
 
 public class BazusMock {
-    public List<Bazus> getBazus(){
-        List<Bazus> result = Lists.newArrayList();
-        Bazus bazus;
+    public List<WersjaAplikacjiBazus> getBazus(){
+        List<WersjaAplikacjiBazus> result = Lists.newArrayList();
+        WersjaAplikacjiBazus wersjaAplikacjiBazus;
 
         for(int i = 0; i<10; i++){
-            bazus = new Bazus();
-            bazus.setDataUstanowienia("bazus "+i);
-            bazus.setIdParent("bazus "+i);
-            bazus.setIdWersja("bazus "+i);
-            bazus.setNazwaUUID("bazus "+i);
-            bazus.setTworca("bazus "+i);
-            bazus.setWersjaBazy("bazus "+i);
+            wersjaAplikacjiBazus = new WersjaAplikacjiBazus();
+            wersjaAplikacjiBazus.setDataUstanowienia("wersjaAplikacjiBazus "+i);
+            wersjaAplikacjiBazus.setIdParent("wersjaAplikacjiBazus "+i);
+            wersjaAplikacjiBazus.setIdWersja("wersjaAplikacjiBazus "+i);
+            wersjaAplikacjiBazus.setNazwaUUID("wersjaAplikacjiBazus "+i);
+            wersjaAplikacjiBazus.setTworca("wersjaAplikacjiBazus "+i);
+            wersjaAplikacjiBazus.setWersjaBazy("wersjaAplikacjiBazus "+i);
 
-            result.add(bazus);
+            result.add(wersjaAplikacjiBazus);
         }
 
         return result;

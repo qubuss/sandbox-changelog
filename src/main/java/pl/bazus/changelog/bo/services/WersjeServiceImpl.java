@@ -3,6 +3,7 @@ package pl.bazus.changelog.bo.services;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.bazus.changelog.domain.EAplikacja;
 import pl.bazus.changelog.domain.IssueRedmine;
 import pl.bazus.changelog.domain.WersjaAplikacjiBazus;
@@ -18,6 +19,7 @@ import java.util.List;
  * @author bogdan.mglowski on 2016-09-15.
  */
 @Slf4j
+@Service
 public class WersjeServiceImpl implements WersjeService {
 
     private ReadFromRedmineService readFromRedmineService;

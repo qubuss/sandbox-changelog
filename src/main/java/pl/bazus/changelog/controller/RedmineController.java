@@ -27,6 +27,7 @@ public class RedmineController {
     @Autowired
     private ReadFromRedmineService readFromRedmineService;
 
+
     @RequestMapping(path = "/redmine/getFieldFromAllIssues", method = RequestMethod.GET, produces = "application/json")
     public List<IssueRedmine> getFieldFromAllIssue(@RequestParam(value = "fieldName", defaultValue = "subject") String field) throws NieMoznaPobracDanychZGitException, BladPodczasPobieraniaDanychException {
 

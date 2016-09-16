@@ -1,14 +1,20 @@
 <div style="width: 80%; margin: 0 auto">
 
-    <h1>Rest Api</h1>
+    <div>
+        <h1>Rest Api</h1>
+        <P align=right>Zalogowany jako {{username}}  <a href="/logout">Wyloguj</a></P>
+    </div>
     <hr/>
 
     <div>
         <button (click)="getAllIssueField()" class="mainButton">Pokaż wszystkie zagadnienia z changeloge</button>
         <button (click)="showIssueInfo()" class="mainButton">Pokaż konkretne zagadnienie</button>
-        <button (click)="getBazusVersion()" class="mainButton">Pokaż wersje Bazusa</button>
+        <button (click)="getBazusVersion()" class="mainButton" *ngIf="czyAdmin">Pokaż wersje Bazusa</button>
+
     </div>
+
     <hr/>
+
 
     <div *ngIf="ladujeDaneShow">
         <label><span class="blink">Ładuje dane...</span></label>

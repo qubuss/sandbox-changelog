@@ -1,6 +1,9 @@
 div {
     margin: 10px;
 }
+hr {
+    margin-top: auto;
+}
 
 button.mainButton {
     margin-top: 10px;

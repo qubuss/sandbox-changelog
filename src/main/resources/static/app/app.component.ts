@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Http} from "@angular/http";
 import {IIssues} from "./issue.component";
 import {IBazus} from "./bazus.component";
+import {IUser} from "./user.component";
 
 @Component({
     selector: 'my-app',
@@ -18,9 +19,25 @@ export class AppComponent implements OnInit {
     private pokazWersjeBazusa = false;
     private pokazWszystkieIssue = false;
     private ladujeDaneShow = false;
+    private user: IUser;
+    private czyAdmin = false;
+    private username: String;
 
 
     constructor(private http: Http) {
+        this.http.get('/secure/getUserDetails')
+            .subscribe(
+                data => {
+                    this.user = data.json() as IUser;
+                    this.czyAdmin = this.user.czyAdmin;
+                    this.username = this.user.username;
+                    console.info(data);
+                },
+                err => {
+                    console.error('An error occurred', err);
+                    alert('An error occurred!!!');
+                }
+            );
     }
 
     private getAllIssueField(): void {
@@ -141,8 +158,11 @@ export class AppComponent implements OnInit {
 
     }
 
+
+
     ngOnInit(): void {
         console.log('Zaczynam prace');
+
 
     }
 
